@@ -30,22 +30,19 @@ public class BootstrapData implements CommandLineRunner {
         Book ddd = new Book("Domain Driven Design","12312222560633");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
-
         authorRepository.save(eric);
         bookRepository.save(ddd);
 
-        Author rod = new Author("Rod","Johnson");
-        Book noEJB= new Book("J2EE Development without EJB","1493894839843");
-        rod.getBooks().add(ddd);
-        noEJB.getAuthors().add(eric);
 
+        Author rod = new Author("Rod","Johnson");
+        Book noEJB = new Book("J2EE Development without EJB","1493894839843");
+        rod.getBooks().add(noEJB);
+        noEJB.getAuthors().add(rod);
         authorRepository.save(rod);
         bookRepository.save(noEJB);
 
-        System.out.println("Started in Bootstrap");
-        System.out.println("Number of books: " + bookRepository.count());
 
-        Publisher penguin = new Publisher(
+        Publisher publisher = new Publisher(
                 "Penguin Publishers",
                 "123 Book Road",
                 "Faro",
@@ -53,9 +50,22 @@ public class BootstrapData implements CommandLineRunner {
                 "122345"
         );
 
-        publisherRepository.save(penguin);
+        publisherRepository.save(publisher);
 
-        System.out.println("Publisher is: " + penguin);
+        publisher.getBooks().add(ddd);
+        publisher.getBooks().add(noEJB);
+
+        publisherRepository.save(publisher);
+
+        ddd.setPublisher(publisher);
+        noEJB.setPublisher(publisher);
+        bookRepository.save(ddd);
+        bookRepository.save(noEJB);
+
+
+        System.out.println("Started in Bootstrap");
+        System.out.println("Number of books: " + bookRepository.count());
+        System.out.println("Publisher: " +  publisher.getName() + " has " + publisher.getBooks().size() + " books");
 
 
     }
