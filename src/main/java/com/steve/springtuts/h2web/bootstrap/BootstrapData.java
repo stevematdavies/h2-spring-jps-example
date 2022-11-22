@@ -47,7 +47,10 @@ public class BootstrapData implements CommandLineRunner {
 
         Publisher penguin = new Publisher(
                 "Penguin Publishers",
-                "123 Book Road, LL, WA 12345"
+                "123 Book Road",
+                "Faro",
+                "NY",
+                "122345"
         );
 
         publisherRepository.save(penguin);
