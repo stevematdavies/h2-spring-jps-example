@@ -2,8 +2,10 @@ package com.steve.springtuts.h2web.bootstrap;
 
 import com.steve.springtuts.h2web.model.Author;
 import com.steve.springtuts.h2web.model.Book;
+import com.steve.springtuts.h2web.model.Publisher;
 import com.steve.springtuts.h2web.repositiry.IAuthorRepository;
 import com.steve.springtuts.h2web.repositiry.IBookRepository;
+import com.steve.springtuts.h2web.repositiry.IPublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +15,12 @@ public class BootstrapData implements CommandLineRunner {
     private final IAuthorRepository authorRepository;
     private final IBookRepository bookRepository;
 
-    public BootstrapData(IAuthorRepository authorRepository, IBookRepository bookRepository) {
+    private final IPublisherRepository publisherRepository;
+
+    public BootstrapData(IAuthorRepository authorRepository, IBookRepository bookRepository, IPublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -40,6 +45,14 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("Started in Bootstrap");
         System.out.println("Number of books: " + bookRepository.count());
 
+        Publisher penguin = new Publisher(
+                "Penguin Publishers",
+                "123 Book Road, LL, WA 12345"
+        );
+
+        publisherRepository.save(penguin);
+
+        System.out.println("Publisher is: " + penguin);
 
 
     }
